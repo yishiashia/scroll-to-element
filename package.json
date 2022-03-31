@@ -1,6 +1,6 @@
 {
   "name": "@yishiashia/scroll-to-element",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An alternative scroll library to scrollIntoView",
   "main": "./dist/scrollToElement.js",
   "scripts": {
