@@ -1,6 +1,6 @@
 {
   "name": "@yishiashia/scroll-to-element",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "An alternative scroll library to scrollIntoView",
   "main": "./dist/scrollToElement.js",
   "scripts": {
@@ -29,6 +29,6 @@
     "webpack": "^5.43.0"
   },
   "devDependencies": {
-    "webpack-cli": "^4.7.2"
+    "webpack-cli": "^4.9.2"
   }
 }

@@ -5,6 +5,45 @@ const easingFuncs = {
   "linear": t => t
 }
 
+let interrupted = false;
+let interruptedTime = Date.now();
+let eventListenerAttached = false;
+let isScrolling = false;
+let lastScrollTime = 0;
+
+const debounce = function(func, wait, immediate) {
+  let timeout;
+
+  return function executedFunction() {
+    const context = this;
+    const args = arguments;
+
+    const later = () => {
+      timeout = null;
+      if (!immediate) {
+        func.apply(context, args);
+      }
+    };
+
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+
+    if (callNow) {
+      func.apply(context, args);
+    }
+  };
+};
+
+const wheelHandler = debounce(
+  () => {
+    interrupted = true;
+    interruptedTime = Date.now();
+  },
+  100,
+  true
+);
+
 const getScrollParent = function (element, includeHidden) {
   var style = getComputedStyle(element);
   var excludeStaticParent = style.position === "absolute";
@@ -23,33 +62,55 @@ const getScrollParent = function (element, includeHidden) {
 }
 
 const scrollToElement = (target, options={ duration: 600, easeFunc: "linear" }) => {
-
   // Configs
   let duration = parseInt(options.duration)
   duration = isNaN(duration) ? 600 : duration
   duration = duration >=0 ? duration : 600
 
-  let easeFunc =
+  const easeFunc =
     ["easeOutCubic", "easeOutQuint", "linear"].includes(options.easeFunc) ? 
       easingFuncs[options.easeFunc] : easingFuncs["linear"]
 
-  const startY = window.scrollY;
-  const parent = getScrollParent(target);
-  const yPos =
-    target.getBoundingClientRect().top - parent.getBoundingClientRect().top;
-  const difference = yPos - startY;
-  const startTime = performance.now();
+  if (isScrolling && Date.now() - lastScrollTime < duration) {
+    return;
+  } else {
 
-  const step = () => {
-    const progress = (performance.now() - startTime) / duration;
-    const amount = easeFunc(progress);
-    window.scrollTo({ top: startY + amount * difference });
-    if (progress < 0.99) {
-      window.requestAnimationFrame(step);
+    // Perform scroll
+    const startY = window.scrollY;
+    const parent = getScrollParent(target);
+    const yPos =
+      target.getBoundingClientRect().top - parent.getBoundingClientRect().top;
+    const difference = yPos - startY;
+    const startTime = performance.now();
+
+    lastScrollTime = Date.now();
+
+    // Catch user interrupted event
+    if (Date.now() - interruptedTime > duration * 2) {
+      interrupted = false;
     }
-  };
 
-  step();
+    if (!eventListenerAttached) {
+      window.addEventListener("wheel", wheelHandler); // PC
+      window.addEventListener("touchmove", wheelHandler); // mobile device
+      eventListenerAttached = true;
+    }
+
+    const step = () => {
+      const progress = (performance.now() - startTime) / duration;
+      const amount = easeFunc(progress);
+      window.scrollTo({ top: startY + amount * difference });
+      if (!interrupted && progress < 0.99) {
+        isScrolling = true;
+        window.requestAnimationFrame(step);
+      } else {
+        isScrolling = false;
+        interruptedTime = 0;
+      }
+    };
+
+    step();
+  }
 };
 
 module.exports = scrollToElement
