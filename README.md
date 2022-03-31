@@ -8,6 +8,25 @@ An alternative scroll library to scrollIntoView.
 
     $ npm install @yishiashia/scroll-to-element
 
+## Syntax
+
+```javascript
+scrollToElement(element, [options])
+```
+
+<br/>
+
+For example:
+```javascript
+scrollToElement(document.getElementById("scroll-target"));
+scrollToElement(document.getElementById("scroll-target"), {
+  duration: 300
+});
+scrollToElement(document.getElementById("scroll-target"), {
+  duration: 300, easeFunc: "linear"
+});
+```
+
 ## Usage
 
 Here's a example that directly include the library into html page. For further customization details, see [options](#options).
