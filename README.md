@@ -2,11 +2,22 @@
 
 An alternative scroll library to scrollIntoView.
 
+[![npm][npm-version-img]][npm-url]
+[![npm][npm-download-img]][npm-url]
+[![jsDelivr](https://data.jsdelivr.com/v1/package/npm/@yishiashia/scroll-to-element/badge)](https://data.jsdelivr.com/v1/package/npm/@yishiashia/scroll-to-element/badge)
+[![GitHub issues][github-issue-img]][github-issue-url]
+![license][license-img]
+
 [![NPM](https://nodei.co/npm/@yishiashia/scroll-to-element.png?mini=true)](https://www.npmjs.com/package/@yishiashia/scroll-to-element)
 
-## Install
+## Installation
+You can install `scroll-to-element` with npm, or just get started quickly with CDN.
+
+### Install from npm
 
     $ npm install @yishiashia/scroll-to-element
+
+After the package is installed, then you can import the module into you code:
 
 ## Syntax
 
@@ -27,29 +38,59 @@ scrollToElement(document.getElementById("scroll-target"), {
 });
 ```
 
-## Usage
+### Install from CDN
+There is `jsDelivr` CDN available for quickly integrated with your web page.
+
+```
+https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.1
+```
+
+or
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.1"></script>
+```
+
+## Basic Usages
 
 Here's a example that directly include the library into html page. For further customization details, see [options](#options).
 
 ```html
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>scroll-to-element demo</title>
+
+  <!-- Load scrollToElement library -->
+  <script src="https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.1"></script>
+  <!-- End Load -->
+
+  <script>
+    function doScroll() {
+      /**
+       * Use window.scrollToElement function to
+       * scroll to the target element
+       */
+      window.scrollToElement(
+        document.getElementById('scroll-target'),
+        {
+          duration: 300,
+          {
+            duration: 300,
+            easeFunc: "linear"
+          }
+        }
+      );
+    }
+  </script>
 
   <style>
     body {
       min-height: 200vh;
-      background-color: green;
     }
     div.content-block {
       height: 100px;
       width: 90%;
       margin: 20px auto;
-      padding: 20px;
-      background-color: yellow;
       border: solid 1px black;
     }
     button {
@@ -58,21 +99,17 @@ Here's a example that directly include the library into html page. For further c
     }
   </style>
 
-  <script src='scrollToElement.js'></script>
-  <script>
-    function doScroll() {
-      scrollToElement(document.getElementById('scroll-target'), { });
-    }
-  </script>
 </head>
 <body>
+
   <div class="content-block"></div>
   <div class="content-block"></div>
   <div id="scroll-target" class="content-block">
     <strong>I am scroll target.</strong>
   </div>
-  <br />
-  <br />
+
+  <br /><br />
+
   <button onclick="doScroll();">Scroll Me</button>
 </body>
 </html>
@@ -109,3 +146,12 @@ The scroll animation transition duration in milliseconds. Default: `600`.
 
 Easing function of animation, can be `linear`, `easeOutCubic` or `easeOutQuint`. Defaults to `linear`.
 
+
+[npm-version-img]: https://img.shields.io/npm/v/@yishiashia/scroll-to-element.svg?style=flat-square
+[npm-download-img]: https://img.shields.io/npm/dm/@yishiashia/scroll-to-element.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/@yishiashia/scroll-to-element
+
+[github-issue-img]: https://img.shields.io/github/issues/yishiashia/scroll-to-element.svg?style=flat-square
+[github-issue-url]: https://github.com/yishiashia/scroll-to-element/issues
+
+[license-img]: https://img.shields.io/npm/l/@yishiashia/scroll-to-element.svg?style=flat-square
