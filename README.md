@@ -42,13 +42,13 @@ scrollToElement(document.getElementById("scroll-target"), {
 There is `jsDelivr` CDN available for quickly integrated with your web page.
 
 ```
-https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.1
+https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.2
 ```
 
 or
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.2"></script>
 ```
 
 ## Basic Usages
@@ -61,7 +61,7 @@ Here's a example that directly include the library into html page. For further c
   <title>scroll-to-element demo</title>
 
   <!-- Load scrollToElement library -->
-  <script src="https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yishiashia/scroll-to-element@2.0.2"></script>
   <!-- End Load -->
 
   <script>
@@ -74,10 +74,7 @@ Here's a example that directly include the library into html page. For further c
         document.getElementById('scroll-target'),
         {
           duration: 300,
-          {
-            duration: 300,
-            easeFunc: "linear"
-          }
+          easeFunc: "linear"
         }
       );
     }
